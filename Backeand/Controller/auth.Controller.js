@@ -30,7 +30,7 @@ async function registration(req, res) {
 async function login(req, res) {
     try {
         const { email, password } = req.body;
-
+        console.log('userID is', req.userId);
         const registeruser = await authSchema.findOne({ email });
         if (!registeruser) {
             return res.status(401).json({ message: 'Invalid email' });
@@ -52,6 +52,8 @@ async function login(req, res) {
         const token = jwt.sign(dataToSend, 'qbsud8r4jhr', {
             expiresIn: "1m"
         });
+
+
 
         res.status(200).json({
             message: 'Login successful',
