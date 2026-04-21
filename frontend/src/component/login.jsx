@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axiosInstance from "../service/AxiosInstance";
+import { Link } from "react-router";
 
 function LoginForm() {
   const {
@@ -8,16 +9,17 @@ function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-async function loginApi(payload) {
-  try {
-    const response = await axiosInstance.post("/auth/login",payload)
-    const data = response.data
-    alert(data.message)
-  } catch (error) {
-    alert (error.response.data.message)
+
+  async function loginApi(payload) {
+    try {
+      const response = await axiosInstance.post("/auth/login", payload);
+      const data = response.data;
+      alert(data.message);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   }
-}
- 
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form
@@ -25,7 +27,7 @@ async function loginApi(payload) {
         className="bg-white p-8 rounded-2xl shadow-md w-96"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
- 
+
         {/* Email */}
         <div className="mb-4">
           <input
@@ -37,12 +39,14 @@ async function loginApi(payload) {
             })}
           />
           {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email.message}</p>
+            <p className="text-red-500 text-sm mt-1">
+              {errors.email.message}
+            </p>
           )}
         </div>
 
         {/* Password */}
-        <div className="mb-6">
+        <div className="mb-2">
           <input
             type="password"
             placeholder="Password"
@@ -52,10 +56,22 @@ async function loginApi(payload) {
             })}
           />
           {errors.password && (
-            <p className="text-red-500 text-sm">
+            <p className="text-red-500 text-sm mt-1">
               {errors.password.message}
             </p>
           )}
+        </div>
+
+        {/* Forgot Password */}
+        <div className="mb-6 text-right">
+          <Link
+          to={'/foragate'}
+            type="button"
+            className="text-sm text-blue-500 hover:underline"
+            
+          >
+            Forgot Password?
+          </Link>
         </div>
 
         {/* Button */}

@@ -6,7 +6,6 @@ const mongoDBConnection = require('./Config/Auth.Config');
 const authRouter = require('./Router/auth.Router');
 const authMiddelWare = require('./MiddelWare/auth.Middelware');
 const app = express();
-
 //=========middelWares========
 app.use(express.json())
 app.use(express.urlencoded())

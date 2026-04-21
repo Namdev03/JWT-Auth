@@ -63,4 +63,24 @@ async function loginApi(req, res) {
         res.status(500).json({ message: error.message })
     }
 }
-module.exports = { registerApi, loginApi }
+async function SendLink(req,res) {
+    try {
+        const find = await authNewSchema.findOne(req.body.email)
+        if (!find) {
+             res.status(404).json({ message: "email not found" })
+        }
+        const tosend = {
+            name:find.name,
+            email:find.email,
+            password:find.password
+        }   
+        const token = jwt.sign(tosend,process.env.SECRATE_KEY)
+        res.status(200).json({
+            message:"password reset link send to the your enterd email"
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+        
+    }
+}
+module.exports = { registerApi, loginApi,SendLink }
