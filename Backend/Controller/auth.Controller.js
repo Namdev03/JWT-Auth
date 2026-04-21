@@ -2,17 +2,36 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const authNewSchema = require('../Model/Auth.Model')
 async function registerApi(req, res) {
-    const { name, email, password } = req.body
+    const { name, email, password } = req.body;
+
     try {
-        const haspasword = await bcrypt.hash(password, 10)
+        const haspasword = await bcrypt.hash(password, 10);
+
         const register = await authNewSchema.create({
             name,
             email,
             password: haspasword
-        })
-        res.status(201).json({ message: "register successfully", Data: register })
+        });
+
+        // const token = jwt.sign(
+        //     { id: register._id, email: register.email },
+        //     process.env.SECRATE_KEY,
+        //     { expiresIn: "1d" }
+        // );
+
+        // res.cookie("token", token, {
+        //     httpOnly: true,
+        //     secure: false, 
+        //     maxAge: 24 * 60 * 60 * 1000
+        // });
+
+        res.status(201).json({
+            message: "register successfully",
+            Data: register
+        });
+
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(500).json({ message: error.message });
     }
 }
 async function loginApi(req, res) {

@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import axiosInstance from "../service/AxiosInstance";
 
 function LoginForm() {
   const {
@@ -7,39 +8,24 @@ function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
-
-    // API call example
-    // fetch("/login", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(data),
-    // });
-  };
-
+async function loginApi(payload) {
+  try {
+    const response = await axiosInstance.post("/auth/login",payload)
+    const data = response.data
+    alert(data.message)
+  } catch (error) {
+    alert (error.response.data.message)
+  }
+}
+ 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(loginApi)}
         className="bg-white p-8 rounded-2xl shadow-md w-96"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-
-        {/* Name */}
-        <div className="mb-4">
-          <input
-            type="text"
-            placeholder="Name"
-            className="w-full p-2 border rounded-lg"
-            {...register("name", { required: "Name is required" })}
-          />
-          {errors.name && (
-            <p className="text-red-500 text-sm">{errors.name.message}</p>
-          )}
-        </div>
-
+ 
         {/* Email */}
         <div className="mb-4">
           <input
