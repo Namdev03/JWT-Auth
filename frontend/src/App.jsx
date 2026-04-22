@@ -9,12 +9,11 @@ function App() {
     <>
       <Routes>
         <Route path='/login' element={<LoginForm />} />
-        <Route path='/foragate' element={<Forgatepassword />} />
-        <Route path='/foragate-password/:token' element={< ChangePasword />} />
+        <Route path='/foragate-password' element={<Forgatepassword />} />
+        <Route path='/reset-password/:token' element={< ChangePasword />} />
 
       </Routes>
     </>
   )
 }
-
 export default App

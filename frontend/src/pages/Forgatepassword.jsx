@@ -8,16 +8,16 @@ function Forgatepassword() {
     handleSubmit,
     formState: { errors },
   } = useForm();
- async function sendlinkApi(payload) {
+async function sendlinkApi(payload) {
   try {
-    const response = await axiosInstance.post('/auth/sendlink',payload)
-    console.log(payload);
-    
+    const response = await axiosInstance.get(
+      `/auth/sendlink/?email=${payload.email}`
+    )
     alert(response.data.message)
   } catch (error) {
-    alert(error.response.data.message)
+    alert(error.response?.data?.message || "Something went wrong")
   }
- }
+}
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form

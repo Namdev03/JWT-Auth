@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import axiosInstance from "../service/AxiosInstance";
 
 
 function ChangePasword() {
@@ -8,12 +9,20 @@ function ChangePasword() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  async function resentApi(data) {
+    try {
+      const payload = {password:data.password,token:data.token}
+      const response = await axiosInstance.post('/auth/reset-password',payload)
+      window.location.replace('/login')
+    } catch (error) {
+      alert(error.response.data.message)
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form
-        onSubmit={handleSubmit()}
+        onSubmit={handleSubmit(resentApi)}
         className="bg-white p-8 rounded-2xl shadow-md w-96"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Forgate Password</h2>

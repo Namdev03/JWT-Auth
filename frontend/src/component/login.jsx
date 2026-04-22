@@ -65,8 +65,7 @@ function LoginForm() {
         {/* Forgot Password */}
         <div className="mb-6 text-right">
           <Link
-          to={'/foragate'}
-            type="button"
+          to={'/foragate-password'}
             className="text-sm text-blue-500 hover:underline"
             
           >
