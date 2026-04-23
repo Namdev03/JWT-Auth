@@ -6,15 +6,17 @@ const mongoDBConnection = require('./Config/Auth.Config');
 const authRouter = require('./Router/auth.Router');
 const authMiddelWare = require('./MiddelWare/auth.Middelware');
 const { verifyTransporter } = require('./Config/Nodemail.Config');
+const multer = require('multer');
 const app = express();
 //=========middelWares========
 app.use(express.json())
-app.use(express.urlencoded())
+app.use(express.urlencoded({extended:true}))
 app.use(cookie())
 app.use(cors({
     origin: "http://localhost:5173",
     credentials: true
 }))
+app.use('upload',express.static('uploads'))
 //=========listen========
 app.use('/auth', authRouter)
 app.get("/test", authMiddelWare, (req, res) => {

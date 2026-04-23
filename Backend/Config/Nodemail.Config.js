@@ -1,5 +1,4 @@
 require('dotenv').config()
-const e = require('express');
 const nodemailer = require('nodemailer')
 const transport = nodemailer.createTransport({
     service: "Gmail",

@@ -17,10 +17,12 @@ const authNewSchema = new Schema({
         required: true,
         minlength: 4
     },
-    token:{
-        type:String
+    token: {
+        type: String
+    },
+    image: {
+        type: String
     }
-
 },
     {
         timeseries: true,

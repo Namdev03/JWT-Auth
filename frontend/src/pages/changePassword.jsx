@@ -1,9 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axiosInstance from "../service/AxiosInstance";
+import { useParams } from "react-router";
 
 
 function ChangePasword() {
+  const {token} = useParams()
+  console.log(token)
   const {
     register,
     handleSubmit,
@@ -11,7 +14,7 @@ function ChangePasword() {
   } = useForm();
   async function resentApi(data) {
     try {
-      const payload = {password:data.password,token:data.token}
+      const payload = {password:data.password,token}
       const response = await axiosInstance.post('/auth/reset-password',payload)
       window.location.replace('/login')
     } catch (error) {
